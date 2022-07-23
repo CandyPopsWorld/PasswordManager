@@ -4,7 +4,7 @@ import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 const elementsCarousel = carouselHomePageData.map(item => {
-    return <img className='carousel_item' src={item.path} alt={item.alt}/>
+    return <img style={{userSelect: 'none'}} className='carousel_item' src={item.path} alt={item.alt}/>
 })
 
 // console.log(elementsCarousel);

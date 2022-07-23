@@ -1,0 +1,45 @@
+.dashboard_section{
+    background-color: #edede9;;
+    width: 100%;
+    min-height: 93.5vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.dashboard_section_item{
+    &_hello{
+        text-align: center;
+        font-size: 2em;
+        color: #03045e;
+    }
+
+    &_alert{
+        margin-bottom: 10px;
+    }
+}
+
+.list_dashboard_block{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dashboard_block{
+    background-color: #023e8a;
+    color: white;
+    padding: 50px;
+    cursor: pointer;
+    text-align: center;
+    &_text{
+        color: gray;
+        font-size: 1.1em;
+    }
+
+    &_value{
+        font-size: 1.5em;
+        font-weight: 900;
+    }
+}

@@ -1,0 +1,166 @@
+body{
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.wrapper_manager{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+//Navbar
+
+.navbar_manager{
+    background-color: #023e8a;
+    height: 100vh;
+    width: 15%;
+    text-align: center;
+
+    &_logo{
+        color: white;
+        font-size: 1.5em;
+        letter-spacing: 0.05em;
+        font-weight: 900;
+        cursor: pointer;
+        user-select: none;
+        text-decoration: none;
+        transition: color 0.5s;
+        &:hover{
+            color: #03045e;
+        }
+    }
+
+    hr{
+        position: relative;
+        z-index: 100;
+        width: 665%;
+        border: 1px solid #e3d5ca;
+        background-color: #03045e;
+        color: #03045e;
+    }
+}
+
+.navbar_manager_item{
+    &_logo{
+        margin-top: 10px;
+    }
+}
+
+.navbar_manager_list_btns{
+}
+
+.navbar_manager_btn {
+    width: 100%;
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        width: 100%;
+        padding: 10px 5px;
+        border: none;
+        font-size: 1.3em;
+        &:hover{
+            background-color: #0096c7;
+        }
+
+        img{
+            width: 28px;
+            height: 28px;
+            margin-right: 5px;
+        }
+    }
+}
+
+// Section
+.sections_manager{
+    height: 100vh;
+    width: 85%;
+    background-color: #edede9;
+}
+
+.section{
+    min-height: 91vh;
+    width: 100%;
+    margin-top: 70px;
+}
+
+//Dashboard Section
+
+.dashboard_section{
+    background-color: #edede9;;
+    width: 100%;
+    min-height: 91vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.dashboard_section_item{
+    &_hello{
+        text-align: center;
+        font-size: 2em;
+        color: #03045e;
+    }
+
+    &_alert{
+        margin-bottom: 10px;
+    }
+}
+
+.list_dashboard_block{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dashboard_block{
+    background-color: #023e8a;
+    color: white;
+    padding: 50px;
+    cursor: pointer;
+    text-align: center;
+    &_text{
+        color: gray;
+        font-size: 1.1em;
+    }
+
+    &_value{
+        font-size: 1.5em;
+        font-weight: 900;
+    }
+}
+
+// Passwords Secion
+
+
+// Settings Section
+
+.settings_section{
+    background-color: #edede9;;
+    width: 100%;
+    min-height: 93.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings_section_item{
+
+    &_header{
+        margin-left: 20px;
+        h2{
+            
+        }
+    }
+}
+
+.settings_form_item{
+    margin: 10px;
+}
