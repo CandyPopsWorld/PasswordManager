@@ -6,7 +6,7 @@ import './Navbar.scss';
 
 const btns = [
     {active: false, icon: 'https://cdn-icons-png.flaticon.com/512/481/481270.png', label: 'Dashboard', id: 1},
-    {active: false, icon: 'https://cdn-icons.flaticon.com/png/512/2886/premium/2886699.png?token=exp=1658593885~hmac=72ac6ee212b558be5b75791f8c163500', label: 'Passwords', id: 2},
+    {active: false, icon: 'https://img.icons8.com/ios/344/lock--v1.png', label: 'Passwords', id: 2},
     {active: false, icon: 'https://cdn-icons-png.flaticon.com/512/681/681443.png', label: 'Groups', id: 3},
     {active: false, icon: 'https://cdn-icons-png.flaticon.com/512/3524/3524636.png', label: 'Settings', id: 4},
     {active: false, icon: 'https://cdn-icons-png.flaticon.com/512/1828/1828945.png', label: 'Quit', id: 5},
