@@ -2,31 +2,49 @@
 import { useContext, useEffect, useState } from 'react';
 import { doc, updateDoc, arrayUnion, getDoc, arrayRemove } from "firebase/firestore";
 import {Context} from '../../index';
+import AlertMessage from '../alertMessage/AlertMessage';
 import './Passwords.scss';
 const Passwords = () => {
     const {auth,db} = useContext(Context);
     const [resource, setResource] = useState('');
     const [passwordResource, setPasswordResource] = useState('');
+    const[groupsResource, setGroupsResource] = useState('');
 
     const [databaseData, setDatabaseData] = useState(null);
 
+    const [showAlert, setShowAlert] = useState(false);
+ 
     const updateDatabase = () => {
         // console.log('click');
         if(resource.length > 0 && passwordResource.length > 0){
+            if(auth.currentUser.emailVerified === false){
+                setShowAlert(true);
+                setResource('');
+                setPasswordResource('');
+                return;
+            }
             const passwordObject = {resource: resource, password: passwordResource};
             const userRf = doc(db, 'users', auth.currentUser.uid);
             updateDoc(userRf, {
                 passwords: arrayUnion(passwordObject)
             })
 
-            setResource('');
-            setPasswordResource('');
             getDataByDatabase();
+        }
+        setResource('');
+        setPasswordResource('');
+    }
+
+    const checkEmailVerefication = () => {
+        if(auth.currentUser.emailVerified === false){
+            setShowAlert(true);
+            return;
         }
     }
 
     useEffect(() => {
         getDataByDatabase();
+        checkEmailVerefication();
     }, [])
 
     const getDataByDatabase = async () => {
@@ -89,7 +107,7 @@ const Passwords = () => {
             <div className="passwords_section_item">
                 <div className="passwords_section_add_password_form">
                     <div className="passwords_section_add_password_form_item">
-                        <label htmlFor="">Название ресурса</label>
+                        <label htmlFor="">Название ресурса*</label>
                         <input 
                         type="text"
                         value={resource}
@@ -97,14 +115,26 @@ const Passwords = () => {
                     </div>
 
                     <div className="passwords_section_add_password_form_item">
-                        <label htmlFor="">Пароль для этого ресурса</label>
+                        <label htmlFor="">Пароль для этого ресурса*</label>
                         <input 
                         type="text"
                         value={passwordResource}
                         onChange={(e) => setPasswordResource(e.target.value)}/>
                     </div>
-                    <button onClick={updateDatabase}>Добавить</button>
+
+                    <div className="passwords_section_add_password_form_item">
+                        <label htmlFor="">Группа(по умолчанию default)</label>
+                        <input 
+                        type="text"
+                        value={groupsResource}
+                        onChange={(e) => setGroupsResource(e.target.value)}/>
+                    </div>
+                    <button className='add_password_btn' onClick={updateDatabase}>Добавить</button>
                 </div>
+            </div>
+
+            <div className="password_section_item_alert">
+                {auth.currentUser.emailVerified === false && showAlert === true ? <AlertMessage setShow={setShowAlert} errorText={'Для того чтобы использовать данный функционал подвтердите электронную почту!'} variant={'danger'}/> : null}
             </div>
         </div>
     )

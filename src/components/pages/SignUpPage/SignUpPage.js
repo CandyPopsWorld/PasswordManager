@@ -43,15 +43,12 @@ const SignUpPage = () => {
                 })
                 setErrorSignUp(message);
                 setShowAlert(true);
-                // console.dir(error);
-                // console.log('code:', error.code);
-                // console.log(error);
             })
         }
     }
 
     const mailVerefication = () => {
-        sendEmailVerification(auth.currrentUser)
+        sendEmailVerification(auth.currentUser)
         .then(() => {
 
         })
@@ -76,17 +73,6 @@ const SignUpPage = () => {
             passwords: [],
             groups: []
         })
-        // try {
-        //     const docRef = await addDoc(collection(db, "users"), {
-        //       username: username,
-        //       email: auth.currentUser.email,
-        //       id: auth.currentUser.uid,
-        //       passwords: []
-        //     });
-        //     console.log("Document written with ID: ", docRef.id);
-        //   } catch (e) {
-
-        //   }
     } 
 
     return (
