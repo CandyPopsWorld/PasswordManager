@@ -8,11 +8,14 @@ import {createUserWithEmailAndPassword, getAuth, sendEmailVerification, updatePr
 
 import AlertMessage from '../../alertMessage/AlertMessage';
 
+import { addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc } from "firebase/firestore"; 
+
 import './SignUpPage.scss';
 
 const SignUpPage = () => {
     // Состояния для регистрации
-    const {auth} = useContext(Context);
+    const {auth, db} = useContext(Context);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -28,6 +31,7 @@ const SignUpPage = () => {
                 setUser(userCredential.user);
                 mailVerefication();
                 addDataUser();
+                addDatabaseData();
                 console.log(userCredential.user);
             })
             .catch((error) => {
@@ -63,6 +67,27 @@ const SignUpPage = () => {
             displayName: username
         })
     }
+
+    const addDatabaseData = async () => {
+        await setDoc(doc(db, 'users', auth.currentUser.uid), {
+            username: username,
+            email: auth.currentUser.email,
+            id: auth.currentUser.uid,
+            passwords: [],
+            groups: []
+        })
+        // try {
+        //     const docRef = await addDoc(collection(db, "users"), {
+        //       username: username,
+        //       email: auth.currentUser.email,
+        //       id: auth.currentUser.uid,
+        //       passwords: []
+        //     });
+        //     console.log("Document written with ID: ", docRef.id);
+        //   } catch (e) {
+
+        //   }
+    } 
 
     return (
         <div className="wrapper_login">

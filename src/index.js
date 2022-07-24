@@ -5,6 +5,7 @@ import App from './components/app/App';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from "firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -22,6 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore(app);
 
 //Context
 export const Context = createContext(null);
@@ -30,7 +32,8 @@ const {Provider} = Context;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider value={{
-    auth
+    auth,
+    db
   }}>
       <App />
   </Provider> 

@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../..';
 import AlertMessage from '../alertMessage/AlertMessage';
+import { doc, getDoc } from 'firebase/firestore';
 import './Dashboard.scss';
 const Dashboard = ({email, username}) => {
-    const {auth} = useContext(Context);
+    const {auth, db} = useContext(Context);
     const [showAlert, setShowAlert] = useState(false);
     const [problems, setProblems] = useState([]);
+    const [databaseData, setDatabaseData] = useState(null);
     // const [objectAlert, setObjectAlert] = useState({});
 
     const InitializeProblems = () => {
@@ -17,9 +19,17 @@ const Dashboard = ({email, username}) => {
 
     useEffect(() => {
         InitializeProblems();
+        getDataByDatabase();
     }, [])
 
+    const getDataByDatabase = async () => {
+        const docRef = doc(db, 'users', auth.currentUser.uid);
+        const docSnap = await getDoc(docRef);
+        setDatabaseData(docSnap.data());
+    }
+
     console.log(auth.currentUser);
+    console.log('dashboardDb:', databaseData);
 
     return (
         <div className="dashboard_section">
@@ -30,7 +40,7 @@ const Dashboard = ({email, username}) => {
                             Password Count
                         </div>
                         <div className="dashboard_block_value">
-                            34
+                            {databaseData !== null ? databaseData.passwords.length : 'Загрузка...'}
                         </div>
                     </div>
 
@@ -39,7 +49,7 @@ const Dashboard = ({email, username}) => {
                             Password Groups
                         </div>
                         <div className="dashboard_block_value">
-                            4
+                            {databaseData !== null ? databaseData.groups.length : 'Загрузка...'}
                         </div>
                     </div>
 
