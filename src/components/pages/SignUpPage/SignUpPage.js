@@ -70,13 +70,18 @@ const SignUpPage = () => {
             username: username,
             email: auth.currentUser.email,
             id: auth.currentUser.uid,
-            passwords: [],
-            groups: []
+            passwords: [
+                
+            ],
+            groups: [{group: 'default'}]
         })
     } 
 
     return (
         <div className="wrapper_login">
+            <div className="logo_password">
+                <Link to={'/'}>PASSWORD</Link>
+            </div>
             <div className="login_container">
                 <div className="login_container_item login_container_item_alert">
                     {showAlert ? <AlertMessage errorText={errorSignUp} setShow={setShowAlert}/> : null}

@@ -2,17 +2,24 @@
 import { useContext, useState } from 'react';
 import { Context } from '../..';
 import { updateProfile } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
 import './SettingsSection.scss';
 
 const SettingsSection = () => {
-    const {auth} = useContext(Context);
+    const {auth, db} = useContext(Context);
     const [usernameChange, setUsernameChange] = useState('');
 
-    const changeDataUserSettings = () => {
+    const changeDataUserSettings = async () => {
         if(usernameChange.length > 5){
-            updateProfile(auth.currentUser, {
+            await updateProfile(auth.currentUser, {
                 displayName: usernameChange
             })
+
+            const docRef = doc(db, 'users', auth.currentUser.uid);
+            await updateDoc(docRef, {
+                username: usernameChange
+            });
+
             setUsernameChange('');
             refreshPage();
         }

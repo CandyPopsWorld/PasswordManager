@@ -13,6 +13,8 @@ const Passwords = () => {
     const [databaseData, setDatabaseData] = useState(null);
 
     const [showAlert, setShowAlert] = useState(false);
+
+    const [groupSelect, setGroupSelect] = useState('default');
  
     const updateDatabase = () => {
         // console.log('click');
@@ -23,7 +25,7 @@ const Passwords = () => {
                 setPasswordResource('');
                 return;
             }
-            const passwordObject = {resource: resource, password: passwordResource};
+            const passwordObject = {resource: resource, password: passwordResource, group: groupSelect};
             const userRf = doc(db, 'users', auth.currentUser.uid);
             updateDoc(userRf, {
                 passwords: arrayUnion(passwordObject)
@@ -50,17 +52,24 @@ const Passwords = () => {
     const getDataByDatabase = async () => {
         const docRef = doc(db, 'users', auth.currentUser.uid);
         const docSnap = await getDoc(docRef);
-        setDatabaseData(docSnap.data());
+        await setDatabaseData(docSnap.data());
         // console.log(docSnap.data());
     }
 
-    const deleteDataPassword = (resource, password) => {
+    const deleteDataPassword = (resource, password, group) => {
         const userRf = doc(db, 'users', auth.currentUser.uid);
-        const passwordObject = {resource: resource, password: password};
+        const passwordObject = {resource: resource, password: password, group: group};
         updateDoc(userRf, {
             passwords: arrayRemove(passwordObject)
         })
         getDataByDatabase();
+    }
+
+    let options_elements = null;
+    if(databaseData !== null){
+        options_elements = databaseData.groups.map((item, i) => {
+            return <option key={i}>{item.group}</option>
+        })
     }
 
     let list_elements = null;
@@ -69,13 +78,13 @@ const Passwords = () => {
             return (
                 <div className="passwords_list_item">
                     <div className="passwords_list_item_source">
-                        {item.resource}
+                        {item.resource}<span style={{color: 'green'}}>({item.group})</span>
                     </div>
                     <div className="passwords_list_item_password">
                         {item.password}
                     </div>
                     <div className="passwords_list_item_delete">
-                        <button onClick={() => deleteDataPassword(item.resource, item.password)}>Удалить</button>
+                        <button onClick={() => deleteDataPassword(item.resource, item.password, item.group)}>Удалить</button>
                     </div>
                 </div>
             )
@@ -124,10 +133,9 @@ const Passwords = () => {
 
                     <div className="passwords_section_add_password_form_item">
                         <label htmlFor="">Группа(по умолчанию default)</label>
-                        <input 
-                        type="text"
-                        value={groupsResource}
-                        onChange={(e) => setGroupsResource(e.target.value)}/>
+                        <select name="" id="" onChange={(e) => setGroupSelect(e.target.value)}>
+                            {options_elements ? options_elements : null}
+                        </select>
                     </div>
                     <button className='add_password_btn' onClick={updateDatabase}>Добавить</button>
                 </div>

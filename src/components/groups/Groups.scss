@@ -1,0 +1,52 @@
+.groups_section{
+    background-color: #edede9;;
+    width: 100%;
+    min-height: 93.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.groups_section_item{
+
+    &_header{
+        margin-left: 20px;
+        h2{
+            
+        }
+    }
+}
+
+.groups_section_item_form{
+    margin: 10px;
+}
+
+.change_btn_groups{
+    margin-left: 10px;
+}
+
+.groups_section_item_list{
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 300px;
+    margin-bottom: 10px;
+
+    &_item{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+}
+
+.delete_groups{
+    margin-left: 10px;
+    border: 1px solid red;
+    color: red;
+
+    &:hover{
+        background-color: red;
+        color: white;
+        border: 1px solid white;
+    }
+}

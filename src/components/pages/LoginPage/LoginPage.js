@@ -61,6 +61,9 @@ const LoginPage = () => {
 
     return (
         <div className="wrapper_login">
+            <div className="logo_password">
+                <Link to={'/'}>PASSWORD</Link>
+            </div>
             <div className="login_container">
                 <div className="login_container_item login_container_item_alert">
                     {showAlert ? <AlertMessage errorText={textAlert} variant={variantAlert} setShow={setShowAlert}/> : null}
