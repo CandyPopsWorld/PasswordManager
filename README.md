@@ -1,1 +1,1 @@
-# Password Managare
+# Password Manager
